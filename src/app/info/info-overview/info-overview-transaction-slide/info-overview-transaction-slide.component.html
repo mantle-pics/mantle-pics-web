@@ -1,0 +1,34 @@
+<div class="full-height-slide" *ngIf="transaction" [class]="getClasses(transaction)">
+    <app-address-card [address]="transaction.from"></app-address-card>
+
+    <div class="card glass shadow-2xl my-8 mx-4 prose relative overflow-hidden" (click)="cardClick(transaction)">
+        <div class="card-body">
+            <i class="far fa-circle-check fa-3x" *ngIf="transaction.status === 'OK'"></i>
+            <h1>{{transaction.value / 1000000000000000000 | number:'1.0-18'}} BIT</h1>
+
+            <div class="card-actions justify-start">
+                <div class="badge badge-outline text-sm"><i class="far fa-calendar mr-2"></i>
+                    {{ getDate(transaction.timeStamp) | date: 'dd.MM.yy'}}
+                </div>
+                <div class="badge badge-outline text-sm"><i class="far fa-cube mr-2"></i>
+                    {{transaction.blockNumber}}
+                </div>
+                <div class="badge badge-outline text-sm break-all h-auto"><i class="far fa-hashtag mr-2"></i>
+                    {{transaction.hash}}</div>
+            </div>
+        </div>
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col opacity-50 text-2xl">
+            <i class="far fa-chevron-down"></i>
+            <i class="far fa-chevron-down"></i>
+            <i class="far fa-chevron-down"></i>
+            <i class="far fa-chevron-down"></i>
+            <i class="far fa-chevron-down"></i>
+            <i class="far fa-chevron-down"></i>
+            <i class="far fa-chevron-down"></i>
+            <i class="far fa-chevron-down"></i>
+            <i class="far fa-chevron-down"></i>
+
+        </div>
+    </div>
+    <app-address-card [address]="transaction.to"></app-address-card>
+</div>

@@ -1,0 +1,54 @@
+<div class="slide-container" *ngIf="address" (scroll)="onElementScroll($event)">
+    <div class="full-height-slide">
+        <div class="container">
+            <div class="card glass shadow-2xl mb-8">
+                <figure><img [src]="profileUrl" alt="profileImage" *ngIf="profileUrl" />
+                    <div class="bg-neutral-focus text-neutral-content h-96 w-full flex justify-center items-center flex-col"
+                        *ngIf="!profileUrl">
+                        <div class="lds-ellipsis">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <p>We are generating your image</p>
+                        <p class="text-xs">This can take up to two minutes</p>
+                    </div>
+                    <button *ngIf="profileUrl" class="absolute top-2 left-2 btn btn-dark" (click)="download()">
+                        <i class="far fa-download"></i>
+                    </button>
+                    <button *ngIf="profileUrl" class=" absolute top-2 right-2 btn btn-dark"
+                        (click)="getProfileImage(address, true)">
+                        <i class="far fa-rotate-right"></i>
+                    </button>
+                </figure>
+                <div class="card-body">
+                    <div class="prose">
+                        <h3 class="card-title hyphens-auto-mobile">{{address}}</h3>
+
+                        <div class="mt-4 border-t-2 border-slate-900" *ngIf="accountInfo">
+                            <p><i class="far fa-money-bill"></i> Balance: {{accountInfo.fetchedCoinBalance/
+                                1000000000000000000 | number:'1.0-18'}} BIT</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngIf="transactions ">
+        <ng-container *ngFor="let transaction of transactions">
+            <app-info-overview-transaction-slide [addressMap]="addressMap" [profileImageMap]="profileImageMap"
+                [transaction]="transaction"></app-info-overview-transaction-slide>
+        </ng-container>
+        <div class="full-height-slide bg-gradient-to-br from-red-900 to-blue-900" *ngIf="transactions.length === 0">
+            <div class="card glass shadow-2xl my-8 mx-4 prose">
+                <div class="card-body ">
+                    <i class="far fa-circle-xmark fa-3x text-white"></i>
+                    <h3 class="text-white">This account has no transactions</h3>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+<i *ngIf="loading" class="far fa-spinner-third fa-spin absolute bottom-4 left-1/2 -translate-x-1/2"></i>

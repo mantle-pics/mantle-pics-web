@@ -1,0 +1,44 @@
+<div class="text-center cursor-pointer" routerLink="/info/{{address}}">
+    <div class="avatar" [class.placeholder]="!address || !infoService.profileImageMap[address]">
+        <ng-container *ngIf="address">
+            <div class="md:w-32 w-20 rounded-full" *ngIf="infoService.profileImageMap[address]">
+                <img [src]="infoService.profileImageMap[address].url" />
+            </div>
+            <div class="bg-neutral-focus text-neutral-content rounded-full md:w-32 w-20"
+                *ngIf="!infoService.profileImageMap[address]">
+                <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </ng-container>
+        <div class="bg-neutral-focus text-neutral-content rounded-full md:w-32 w-20" *ngIf="!address">
+            <span class="text-3xl">NULL</span>
+        </div>
+    </div>
+
+    <p *ngIf="address" class="text-xs break-all mb-1">{{ address }}</p>
+    <p *ngIf="!address" class="text-xs break-all mb-1">null-address</p>
+
+    <div class="badge badge-outline text-sm">
+        <ng-container [ngSwitch]="getType()">
+            <ng-container *ngSwitchCase="'you'">
+                <i class="far fa-hand-back-point-right mr-2"></i>
+                You
+            </ng-container>
+            <ng-container *ngSwitchCase="'contract'">
+                <i class="far fa-handshake-simple mr-2"></i>
+                Contract
+            </ng-container>
+            <ng-container *ngSwitchCase="'wallet'">
+                <i class="far fa-wallet mr-2"></i>
+                Wallet
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+                -
+            </ng-container>
+        </ng-container>
+    </div>
+</div>
